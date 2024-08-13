@@ -2,7 +2,7 @@
 
 ## 專案簡介
 
-本專案旨在學習和實踐各種設計模式。此部分專注於 Singleton（單例）模式、Factory（工廠）模式、Strategy（策略）模式與 Observer（觀察者）模式的實現與應用。
+本專案旨在學習和實踐各種設計模式。此部分專注於 Singleton（單例）模式、Factory（工廠）模式、Strategy（策略）模式、Observer（觀察者）模式與 Decorator（裝飾者）模式的實現與應用。
 
 ## 目錄結構
 
@@ -26,13 +26,22 @@ nodejs-design-patterns-practice/
 │   │   │   ├── index.js            # 觀察者模式的入口
 │   │   │   ├── NewsCategory.js     # 被觀察者類別，代表新聞類別
 │   │   │   ├── User.js             # 觀察者類別，代表訂閱的用戶
+│   ├── structural/                 # 結構型設計模式
+│   │   ├── decorator/
+│   │   │   ├── index.js            # 裝飾者模式的入口
+│   │   │   ├── BasicCoffee.js      # 基本咖啡類別
+│   │   │   ├── Decorator.js        # 裝飾者基類
+│   │   │   ├── MilkDecorator.js    # 牛奶裝飾者
+│   │   │   ├── SugarDecorator.js   # 糖裝飾者
 ├── tests/
 │   ├── creational/
 │   │   ├── singleton.test.js
 │   │   ├── factory.test.js
 │   ├── behavioral/
 │   │   ├── strategy.test.js
-│   │   ├── observer.test.js        # 觀察者模式的測試
+│   │   ├── observer.test.js
+│   ├── structural/
+│   │   ├── decorator.test.js       # 裝飾者模式的測試
 ├── .env                         # 環境變量文件
 ├── .eslintrc.js                 # ESLint 配置
 ├── .prettierrc                  # Prettier 配置
@@ -163,6 +172,36 @@ Observer 模式適用於以下情境：
 
 3. **多訂閱者系統**：
     - 當系統中存在多個訂閱者，且這些訂閱者需要根據某一主體的狀態變化進行反應時。例如，新聞訂閱系統中，當有新新聞發布時，所有訂閱該新聞類別的用戶都會收到通知。
+
+## Decorator 模式
+
+### 模式設計
+
+Decorator 模式是一種結構型設計模式，它允許你在不改變對象結構的情況下，動態地為對象添加新功能。這種模式將功能分層，並將它們分別封裝在不同的裝飾者中，從而達到動態擴展對象功能的目的。
+
+### 必要內容
+
+1. **基類（Component）**：
+    - 基類定義了對象的基本行為。這個類別通常是被裝飾的對象。
+
+2. **裝飾者基類（Decorator）**：
+    - 裝飾者基類持有一個基類對象的引用，並且它實現了與基類相同的接口。裝飾者基類可以在不改變原有對象的基礎上為其添加新功能。
+
+3. **具體裝飾者（Concrete Decorator）**：
+    - 具體裝飾者是裝飾者基類的子類，負責添加具體的功能或行為。
+
+### 使用情境
+
+Decorator 模式適用於以下情境：
+
+1. **動態添加功能**：
+    - 當你需要在運行時為對象動態地添加功能，而不希望修改對象本身的代碼。
+
+2. **功能擴展**：
+    - 當現有的類別已經提供了核心功能，但你想要在此基礎上增強或擴展功能，而不改變其原有的接口或行為。
+
+3. **UI 元素裝飾**：
+    - 在 GUI 應用中，為一個基本的 UI 元素（如按鈕、文本框）動態添加邊框、陰影、顏色等裝飾效果。
 
 ## 使用方法
 
