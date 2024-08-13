@@ -17,6 +17,9 @@ class NewsCategory {
      * @param {Object} observer - 要添加的訂閱者。
      */
     subscribe(observer) {
+        /**
+         * TODO: 檢查訂閱者是否已經訂閱，防止重複訂閱同一新聞類別。
+         */
         this.subscribers.push(observer);
     }
 
@@ -25,6 +28,9 @@ class NewsCategory {
      * @param {Object} observer - 要移除的訂閱者。
      */
     unsubscribe(observer) {
+        /**
+         * TODO: 檢查訂閱者是否已訂閱，避免取消未訂閱的訂閱者時出現錯誤。
+         */
         this.subscribers = this.subscribers.filter(sub => sub !== observer);
     }
 
@@ -32,6 +38,9 @@ class NewsCategory {
      * 通知所有訂閱者，告知他們最新的新聞。
      */
     notify() {
+        /**
+         * TODO: 在大量訂閱者的情況下，考慮引入批量通知或異步通知以提高性能。
+         */
         for (const subscriber of this.subscribers) {
             subscriber.update(this.latestNews);
         }
@@ -42,6 +51,9 @@ class NewsCategory {
      * @param {string} news - 新的新聞內容。
      */
     publish(news) {
+        /**
+         * TODO: 探索使用策略模式來處理不同訂閱者只關心特定類型新聞的情況，以使系統更加靈活。
+         */
         this.latestNews = `${this.categoryName}: ${news}`;
         this.notify();
     }

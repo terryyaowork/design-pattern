@@ -4,7 +4,7 @@ class PayPalStrategy {
     }
 
     validate() {
-        if (!this.email) {
+        if (!this.email || !this.email.includes('@')) {
             throw new Error('Invalid PayPal email');
         }
         // 假設這裡還有其他 PayPal 驗證邏輯

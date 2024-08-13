@@ -14,7 +14,11 @@
  *    - 測試當策略的參數無效或不完整時，系統是否能夠正確拋出相應的錯誤。
  *    - 這包括檢查每個支付方式的關鍵參數是否存在，以及它們是否符合預期格式。
  * 
- * 這些測試情境旨在全面驗證策略模式在處理不同支付方式時的正確性和穩定性，確保在面對實際業務需求時，系統能夠有效運行。
+ * 3. **特殊情境測試：**
+ *    - 測試例如信用卡號長度不正確、PayPal 電子郵件格式無效等特殊情境下的錯誤處理。
+ * 
+ * 這些測試情境旨在全面驗證策略模式在處理不同支付方式時的正確性和穩定性，
+ * 確保在面對實際業務需求時，系統能夠有效運行。
  */
 
 const {
@@ -81,6 +85,36 @@ describe('Strategy Pattern with Validation', () => {
      */
     it('應該拋出錯誤當 BankTransferStrategy 驗證失敗時', () => {
         const bankTransfer = new BankTransferStrategy('', '123456789'); // 賬戶號為空，應該觸發錯誤
+        const context = new PaymentContext(bankTransfer);
+        expect(() => context.executeStrategy(300)).toThrow('Invalid bank transfer details');
+    });
+
+    /**
+     * 測試 CreditCardStrategy 的卡號長度不正確時的錯誤處理。
+     * 當卡號長度不符合16位時，應該拋出相應的錯誤。
+     */
+    it('應該拋出錯誤當 CreditCardStrategy 的卡號長度不正確時', () => {
+        const creditCard = new CreditCardStrategy('123', 'John Doe', '12/25');
+        const context = new PaymentContext(creditCard);
+        expect(() => context.executeStrategy(100)).toThrow('Credit card number must be 16 digits long');
+    });
+
+    /**
+     * 測試 PayPalStrategy 的 email 格式不正確時的錯誤處理。
+     * 當 email 格式不正確時，應該拋出相應的錯誤。
+     */
+    it('應該拋出錯誤當 PayPalStrategy 的 email 格式不正確時', () => {
+        const payPal = new PayPalStrategy('invalid-email'); // email 格式不正確
+        const context = new PaymentContext(payPal);
+        expect(() => context.executeStrategy(200)).toThrow('Invalid PayPal email');
+    });
+    
+    /**
+     * 測試 BankTransferStrategy 的帳號不正確時的錯誤處理。
+     * 當帳號不符合預期時，應該拋出相應的錯誤。
+     */
+    it('應該拋出錯誤當 BankTransferStrategy 的帳號不正確時', () => {
+        const bankTransfer = new BankTransferStrategy('', '123456789'); // 帳號為空
         const context = new PaymentContext(bankTransfer);
         expect(() => context.executeStrategy(300)).toThrow('Invalid bank transfer details');
     });
