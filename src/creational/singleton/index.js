@@ -47,3 +47,9 @@ const instance = new Singleton();
 Object.freeze(instance);
 
 module.exports = instance;
+
+/**
+ * TODO: 如果未來需要擴展 Singleton 模式（如延遲初始化或不同參數化的實例），應該考慮重新設計 Singleton 模式以滿足這些需求。
+ * TODO: 目前的實例資料儲存結構為單一物件 _data，如果將來需要更複雜的資料結構或支援多種資料類型，則可能需要進一步封裝資料管理邏輯。
+ * TODO: 當資料量或資料存取頻率較高時，可能需要考慮加入快取機制或優化資料存取方法的效能。
+ */

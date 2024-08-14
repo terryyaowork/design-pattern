@@ -33,6 +33,9 @@ nodejs-design-patterns-practice/
 │   │   │   ├── Decorator.js        # 裝飾者基類
 │   │   │   ├── MilkDecorator.js    # 牛奶裝飾者
 │   │   │   ├── SugarDecorator.js   # 糖裝飾者
+│   │   ├── proxy/
+│   │   │   ├── index.js            # 代理模式的入口
+│   │   │   ├── ProxyImage.js       # 代理圖像類別
 ├── tests/
 │   ├── creational/
 │   │   ├── singleton.test.js
@@ -42,6 +45,7 @@ nodejs-design-patterns-practice/
 │   │   ├── observer.test.js
 │   ├── structural/
 │   │   ├── decorator.test.js       # 裝飾者模式的測試
+│   │   ├── proxy.test.js           # 代理模式的測試
 ├── .env                         # 環境變量文件
 ├── .eslintrc.js                 # ESLint 配置
 ├── .prettierrc                  # Prettier 配置
@@ -50,6 +54,20 @@ nodejs-design-patterns-practice/
 └── README.md                    # 專案說明文件
 ```
 
+## TODO 項目
+
+1. **代碼格式化和 linting**:
+    - 在專案中增加 linting 和格式化的規則，確保代碼一致性。
+    - 可以考慮在 CI/CD 流程中自動檢查代碼風格。
+
+2. **性能優化**:
+    - 優化 Observer 和 Strategy 模式中的通知與策略切換，以應對大量訂閱者或策略的情境。
+
+3. **增加測試覆蓋率**:
+    - 增加更多邊緣情境和異常處理的測試用例，確保代碼的健壯性。
+
+4. **Refactor**:
+    - 未來可能需要重構部分設計模式的實現，以適應更多的業務需求。
 ## Singleton 模式
 
 ### 模式設計
