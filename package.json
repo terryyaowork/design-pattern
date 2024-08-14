@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js",
-    "test": "jest --verbose"
+    "start": "node src/server.js",
+    "test": "jest --verbose --detectOpenHandles"
   },
   "keywords": [],
   "author": "",

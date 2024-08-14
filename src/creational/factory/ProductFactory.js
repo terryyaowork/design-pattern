@@ -17,13 +17,12 @@ class CreditCardPayment extends Payment {
         this.expirationDate = expirationDate;
     }
 
-    // 共同方法的具體實現
     process(amount) {
         return `Processing credit card payment of ${amount} for card holder ${this.cardHolder}`;
     }
 
-    // 特有方法，用於驗證信用卡
     validateCard() {
+        // TODO: 考慮添加更多的卡號驗證邏輯，如 Luhn 算法驗證
         return this.cardNumber.length === 16;
     }
 }
@@ -39,13 +38,12 @@ class BankTransferPayment extends Payment {
         this.bankCode = bankCode;
     }
 
-    // 共同方法的具體實現
     process(amount) {
         return `Processing bank transfer of ${amount} from account ${this.accountNumber}`;
     }
 
-    // 特有方法，用於驗證銀行信息
     validateBankDetails() {
+        // TODO: 考慮添加更多的銀行代碼驗證邏輯，如檢查代碼格式或查詢有效性
         return this.bankCode.length === 9;
     }
 }
@@ -60,30 +58,49 @@ class PayPalPayment extends Payment {
         this.email = email;
     }
 
-    // 共同方法的具體實現
     process(amount) {
         return `Processing PayPal payment of ${amount} for ${this.email}`;
     }
+
+    // TODO: 考慮添加更多的電子郵件格式驗證邏輯
 }
 
 // 工廠類別，用於根據支付方式類型創建對應的支付對象
 class PaymentFactory {
-    static createPayment(method, options) {
-        if (!options || typeof options !== 'object') {
+    constructor() {
+        this.paymentMethods = {
+            CreditCard: CreditCardPayment,
+            BankTransfer: BankTransferPayment,
+            PayPal: PayPalPayment,
+        };
+    }
+
+    registerPaymentMethod(methodName, methodClass) {
+        if (!methodName || !methodClass) {
+            throw new Error('Invalid method name or class for registration');
+        }
+        this.paymentMethods[methodName] = methodClass;
+    }
+
+    createPayment(method, options) {
+        // 檢查 options 是否為 null 或 undefined
+        if (options == null) {
             throw new Error('Invalid options provided');
         }
 
-        switch (method) {
-            case 'CreditCard':
-                return new CreditCardPayment(options);
-            case 'BankTransfer':
-                return new BankTransferPayment(options);
-            case 'PayPal':
-                return new PayPalPayment(options);
-            default:
-                throw new Error('Unknown payment method');
+        const PaymentMethod = this.paymentMethods[method];
+        if (!PaymentMethod) {
+            throw new Error('Unknown payment method');
         }
+        return new PaymentMethod(options);
     }
 }
 
-module.exports = PaymentFactory;
+// 將所有類別一起導出
+module.exports = {
+    Payment,
+    CreditCardPayment,
+    BankTransferPayment,
+    PayPalPayment,
+    PaymentFactory,
+};
