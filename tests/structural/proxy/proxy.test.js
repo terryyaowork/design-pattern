@@ -23,9 +23,15 @@
  * 
  * 7. **邊緣情況測試：**
  *    - 測試代理能否處理空字符串作為文件名，並正確加載和顯示。
+ * 
+ * 8. **高並發測試：**
+ *    - 測試在高並發情況下，代理是否能正確處理圖像顯示。
+ * 
+ * 9. **異常處理測試：**
+ *    - 測試代理在圖像加載過程中出現異常的情況下，是否能正確處理。
  */
 
-const { ProxyImage } = require('../../../src/structural/proxy/index');
+const { ProxyImage, RealImage } = require('../../../src/structural/proxy/index');
 
 describe('Proxy Pattern', () => {
 
@@ -127,9 +133,39 @@ describe('Proxy Pattern', () => {
 
         console.log = jest.fn();
 
-        proxyImage.display();
+        let caughtError;
+        try {
+            proxyImage.display();
+        } catch (error) {
+            caughtError = error;
+        }
 
-        expect(console.log).toHaveBeenCalledWith('Loading  from disk...');
-        expect(console.log).toHaveBeenCalledWith('Displaying ');
+        expect(caughtError).toBeDefined();
+        expect(caughtError.message).toBe('Filename is missing');
+        expect(console.log).not.toHaveBeenCalledWith('Displaying');
+    });
+
+    // 測試代理在圖像加載過程中出現異常的情況
+    it('應該在加載圖像時正確處理異常', () => {
+        class FaultyRealImage extends RealImage {
+            loadFromDisk() {
+                throw new Error('Failed to load image from disk');
+            }
+        }
+            
+        let caughtError;
+        try {
+            const proxyImage = new ProxyImage('valid_filename.png');
+            proxyImage.realImage = new FaultyRealImage('valid_filename.png');
+
+            proxyImage.display();
+        } catch (error) {
+            caughtError = error;
+        }
+    
+        expect(caughtError).toBeDefined();
+        expect(caughtError.message).toBe('Failed to load image from disk');
+        // 確認 display 方法沒有成功執行
+        expect(console.log).not.toHaveBeenCalledWith('Displaying');
     });
 });

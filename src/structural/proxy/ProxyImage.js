@@ -19,10 +19,15 @@ class ProxyImage {
      * 後續顯示將直接使用已加載的圖像。
      */
     display() {
-        if (!this.realImage) {
-            this.realImage = new RealImage(this.filename); // 只有第一次顯示時才加載圖像
+        try {
+            if (this.realImage === null) {
+                this.realImage = new RealImage(this.filename); // 這裡可能會拋出異常
+            }
+            this.realImage.display(); // 顯示圖像
+        } catch (error) {
+            console.log(`Error displaying image: ${error.message}`);
+            throw error; // 向上拋出異常，讓調用方處理
         }
-        this.realImage.display(); // 顯示圖像
     }
 }
 
