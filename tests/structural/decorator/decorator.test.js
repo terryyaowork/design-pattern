@@ -21,11 +21,15 @@
  * 5. **高並發測試：**
  *    - 測試在多線程高並發情境下裝飾者應用的穩定性和一致性。
  * 
- * 6. **限制：**
- *    - 雖然測試了對象凍結後應用裝飾者的情況，但實際上對象凍結並不會阻止新的裝飾者應用，因此相關測試主要是為了確保應用後狀態的正確性。
+ * 6. **多層嵌套測試：**
+ *    - 測試多層嵌套的裝飾者組合，確保最終的描述和價格正確。
+ * 
+ * 7. **異常處理測試：**
+ *    - 測試裝飾者拋出異常後的狀態恢復。
  */
 
 const {
+    Decorator,
     BasicCoffee,
     MilkDecorator,
     SugarDecorator
@@ -154,4 +158,42 @@ describe('Decorator Pattern', () => {
             expect(coffee.description()).toBe('Basic Coffee + Milk + Sugar');
         });
     });
+
+    // 測試多層嵌套的裝飾者組合
+    it('應該正確處理多層嵌套的裝飾者', () => {
+        let coffee = new BasicCoffee();
+        coffee = new MilkDecorator(coffee);
+        coffee = new SugarDecorator(coffee);
+        coffee = new MilkDecorator(coffee);
+        coffee = new SugarDecorator(coffee);
+
+        expect(coffee.cost()).toBe(11);  // 基本咖啡5 + 2次牛奶(2+2) + 2次糖(1+1)
+        expect(coffee.description()).toBe('Basic Coffee + Milk + Sugar + Milk + Sugar');
+    });
+
+    // 測試裝飾者拋出異常後的恢復處理
+    it('應該在裝飾者拋出異常後正確處理', () => {
+        let coffee = new BasicCoffee();
+        coffee = new MilkDecorator(coffee);
+        
+        // 定義一個會拋出異常的裝飾者類別
+        class FaultyDecorator extends Decorator {
+            cost() {
+                throw new Error('Unexpected Error');
+            }
+            description() {
+                return 'Faulty Decorator';
+            }
+        }
+        
+        expect(() => {
+            const faultyCoffee = new FaultyDecorator(coffee);
+            faultyCoffee.cost();  // 這裡調用 cost() 方法，應該會拋出異常
+        }).toThrow('Unexpected Error');
+        
+        // 確認之前的裝飾者仍然有效
+        expect(coffee.cost()).toBe(7);
+        expect(coffee.description()).toBe('Basic Coffee + Milk');
+    });
+    
 });

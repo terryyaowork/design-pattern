@@ -2,6 +2,10 @@ const BasicCoffee = require('./BasicCoffee');
 
 /**
  * Decorator 是一個抽象基類，用於為 Coffee 對象添加動態行為。
+ * 這個基類定義了基本的 `cost` 和 `description` 方法，
+ * 子類可以在這些方法上添加額外的行為。
+ * 
+ * @param {BasicCoffee} coffee - 被裝飾的咖啡對象，必須是 BasicCoffee 或 Decorator 的實例。
  */
 class Decorator {
     /**
