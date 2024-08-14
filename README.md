@@ -36,6 +36,11 @@ nodejs-design-patterns-practice/
 │   │   ├── proxy/
 │   │   │   ├── index.js            # 代理模式的入口
 │   │   │   ├── ProxyImage.js       # 代理圖像類別
+│   │   ├── adapter/
+│   │   │   ├── index.js            # 適配器模式的入口
+│   │   │   ├── IPaymentProcessor.js  # 支付接口
+│   │   │   ├── PaymentAdapter.js   # 支付適配器類別
+│   │   │   ├── OldPaymentSystem.js # 舊的支付系統
 ├── tests/
 │   ├── creational/
 │   │   ├── singleton.test.js
@@ -46,6 +51,7 @@ nodejs-design-patterns-practice/
 │   ├── structural/
 │   │   ├── decorator.test.js       # 裝飾者模式的測試
 │   │   ├── proxy.test.js           # 代理模式的測試
+│   │   ├── adapter.test.js         # 適配器模式的測試
 ├── .env                         # 環境變量文件
 ├── .eslintrc.js                 # ESLint 配置
 ├── .prettierrc                  # Prettier 配置
@@ -147,6 +153,21 @@ Proxy 模式是一種結構型設計模式，它允許你在不改變原始對�
     - 在大型圖像或文件的加載過程中，虛擬代理可以在真正加載之前顯示佔位符或延遲加載。
 3. **保護代理**：
     - 在安全控制中，代理可以根據用戶的權限來控制對某些敏感資源的訪問。
+
+### Adapter 模式
+
+#### 模式設計
+
+Adapter 模式是一種結構型設計模式，它允許不兼容的接口協同工作，通過適配器將一個類的接口轉換成客戶端期望的另一個接口。
+
+#### 使用情境
+
+1. **舊系統整合**：
+    - 當需要將新的系統與現有的舊系統集成時，適配器模式可以有效地協調兩者之間的通信。
+2. **API 適配**：
+    - 在更換或升級 API 時，使用適配器來保持向後兼容，避免修改現有代碼。
+3. **第三方庫整合**：
+    - 當需要整合第三方庫並使用不同的接口時，適配器模式可以幫助進行接口的適配和轉換。
 
 ## 使用方法
 
