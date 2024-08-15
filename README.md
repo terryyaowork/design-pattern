@@ -41,6 +41,11 @@ nodejs-design-patterns-practice/
 │   │   │   ├── IPaymentProcessor.js  # 支付接口
 │   │   │   ├── PaymentAdapter.js   # 支付適配器類別
 │   │   │   ├── OldPaymentSystem.js # 舊的支付系統
+│   ├── facade/
+│   │   ├── Facade.js            # 訂單系統的外觀模式
+│   │   ├── InventoryManager.js   # 庫存管理系統
+│   │   ├── PaymentProcessor.js   # 支付處理系統
+│   │   └── ShippingService.js    # 配送系統
 ├── tests/
 │   ├── creational/
 │   │   ├── singleton.test.js
@@ -52,6 +57,7 @@ nodejs-design-patterns-practice/
 │   │   ├── decorator.test.js       # 裝飾者模式的測試
 │   │   ├── proxy.test.js           # 代理模式的測試
 │   │   ├── adapter.test.js         # 適配器模式的測試
+│   │   ├── facade.test.js          # 外觀器模式的測試
 ├── .env                         # 環境變量文件
 ├── .eslintrc.js                 # ESLint 配置
 ├── .prettierrc                  # Prettier 配置
@@ -168,6 +174,23 @@ Adapter 模式是一種結構型設計模式，它允許不兼容的接口協同
     - 在更換或升級 API 時，使用適配器來保持向後兼容，避免修改現有代碼。
 3. **第三方庫整合**：
     - 當需要整合第三方庫並使用不同的接口時，適配器模式可以幫助進行接口的適配和轉換。
+
+### Facade 模式
+
+#### 模式設計
+
+Facade 模式是一種結構型設計模式，它提供了一個統一的接口來對外簡化子系統的交互，隱藏複雜的子系統實現細節，從而讓應用程式更易於使用。
+
+#### 使用情境
+
+1. **訂單處理系統**：
+    - 使用 Facade 模式將庫存管理、支付處理、物流配送等子系統進行封裝，對外只提供一個簡單的訂單處理接口。
+2. **第三方系統集成**：
+    - 通過 Facade 模式將多個第三方 API 的調用進行封裝，對外提供簡單一致的接口來進行操作。
+3. **複雜業務邏輯**：
+    - 當一個系統涉及多個子系統，且這些子系統之間的互動邏輯較為複雜時，使用 Facade 模式可以減少調用者的認知負擔，避免直接操作各子系統。
+
+
 
 ## 使用方法
 
