@@ -42,7 +42,13 @@ describe('Factory Pattern', () => {
     let factory;
 
     beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});  // 禁用 console.log
+
         factory = new PaymentFactory();
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();  // 恢復 console.log
     });
 
     // 測試 CreditCardPayment 的正確創建和參數驗證

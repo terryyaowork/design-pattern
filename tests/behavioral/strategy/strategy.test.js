@@ -27,6 +27,14 @@ const {
 } = require('../../../src/behavioral/strategy/index');
 
 describe('Strategy Pattern with Validation', () => {
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});  // 禁用 console.log
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();  // 恢復 console.log
+    });
+
     /**
      * 測試 CreditCardStrategy 的正確驗證。
      * 確保 CreditCardStrategy 能夠正確處理有效的信用卡資訊。

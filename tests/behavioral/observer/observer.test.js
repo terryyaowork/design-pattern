@@ -21,6 +21,14 @@
 const { NewsCategory, User } = require('../../../src/behavioral/observer/index');
 
 describe('Observer Pattern - News Subscription System', () => {
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});  // 禁用 console.log
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();  // 恢復 console.log
+    });
+
     /**
      * 測試發布新新聞時是否通知所有訂閱者。
      * 確保所有訂閱了該新聞類別的用戶都能夠正確收到通知。

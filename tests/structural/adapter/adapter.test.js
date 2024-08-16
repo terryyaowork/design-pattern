@@ -34,6 +34,14 @@
 const PaymentAdapter = require('../../../src/structural/adapter/PaymentAdapter');
 
 describe('Adapter Pattern', () => {
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});  // 禁用 console.log
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();  // 恢復 console.log
+    });
+
     // 測試適配器能否通過舊系統處理常規支付
     it('應該能夠通過適配器使用舊的支付系統', () => {
         const paymentProcessor = new PaymentAdapter();

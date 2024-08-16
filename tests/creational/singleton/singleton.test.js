@@ -34,6 +34,13 @@
 const singleton = require('../../../src/creational/singleton/index');
 
 describe('Singleton 模式測試', () => {
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});  // 禁用 console.log
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();  // 恢復 console.log
+    });
 
     // 測試 Singleton 實例的唯一性
     it('應該總是返回相同的實例', () => {

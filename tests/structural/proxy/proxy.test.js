@@ -34,6 +34,13 @@
 const { ProxyImage, RealImage } = require('../../../src/structural/proxy/index');
 
 describe('Proxy Pattern', () => {
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});  // 禁用 console.log
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();  // 恢復 console.log
+    });
 
     // 測試代理在首次顯示圖像時正確加載並顯示
     it('應該在首次顯示圖像時加載並顯示圖像', () => {

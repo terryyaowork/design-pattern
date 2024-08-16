@@ -36,6 +36,13 @@ const {
 } = require('../../../src/structural/decorator/index');
 
 describe('Decorator Pattern', () => {
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});  // 禁用 console.log
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();  // 恢復 console.log
+    });
     
     // 測試基本咖啡類別的價格和描述
     it('應該返回正確的基本咖啡價格和描述，沒有任何裝飾', () => {
