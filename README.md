@@ -38,25 +38,28 @@ nodejs-design-patterns-practice/
 │   │   │   ├── CSVDataProcessor.js         # CSV 文件處理實現
 │   │   │   └── JSONDataProcessor.js        # JSON 文件處理實現
 │   ├── structural/                         # 結構型設計模式
+│   │   ├── adapter/                        # 適配器模式
+│   │   │   ├── index.js                    # 適配器模式的入口
+│   │   │   ├── IPaymentProcessor.js        # 支付接口
+│   │   │   ├── PaymentAdapter.js           # 支付適配器類別
+│   │   │   ├── OldPaymentSystem.js         # 舊的支付系統
 │   │   ├── decorator/                      # 裝飾者模式
 │   │   │   ├── index.js                    # 裝飾者模式的入口
 │   │   │   ├── BasicCoffee.js              # 基本咖啡類別
 │   │   │   ├── Decorator.js                # 裝飾者基類
 │   │   │   ├── MilkDecorator.js            # 牛奶裝飾者
 │   │   │   ├── SugarDecorator.js           # 糖裝飾者
-│   │   ├── proxy/                          # 代理模式
-│   │   │   ├── index.js                    # 代理模式的入口
-│   │   │   ├── ProxyImage.js               # 代理圖像類別
-│   │   ├── adapter/                        # 適配器模式
-│   │   │   ├── index.js                    # 適配器模式的入口
-│   │   │   ├── IPaymentProcessor.js        # 支付接口
-│   │   │   ├── PaymentAdapter.js           # 支付適配器類別
-│   │   │   ├── OldPaymentSystem.js         # 舊的支付系統
 │   │   ├── facade/                         # 外觀模式
 │   │   │   ├── Facade.js                   # 訂單系統的外觀模式
 │   │   │   ├── InventoryManager.js         # 庫存管理系統
 │   │   │   ├── PaymentProcessor.js         # 支付處理系統
-│   │   │   └── ShippingService.js          # 配送系統
+│   │   │   ├── ShippingService.js          # 配送系統
+│   │   ├── prototype/                      # 原型模式
+│   │   │   ├── NestedComponent.js          # 巢狀 ui 元件
+│   │   │   ├── UIComponent.js              # 初始 ui 元件
+│   │   ├── proxy/                          # 代理模式
+│   │   │   ├── index.js                    # 代理模式的入口
+│   │   │   └── ProxyImage.js               # 代理圖像類別
 ├── tests/
 │   ├── creational/                         # 創建型設計模式測試
 │   │   ├── singleton.test.js               # 單例模式的測試
@@ -70,7 +73,7 @@ nodejs-design-patterns-practice/
 │   │   ├── decorator.test.js               # 裝飾者模式的測試
 │   │   ├── proxy.test.js                   # 代理模式的測試
 │   │   ├── adapter.test.js                 # 適配器模式的測試
-│   │   ├── facade.test.js                  # 外觀器模式的測試
+│   │   ├── facade.test.js                  # 外觀模式的測試
 ├── .env                                    # 環境變量文件
 ├── .eslintrc.js                            # ESLint 配置
 ├── .prettierrc                             # Prettier 配置
@@ -167,7 +170,7 @@ Proxy 模式是一種結構型設計模式，它允許你在不改變原始對�
 #### 使用情境
 
 1. **遠程代理**：
-    - 當需要通過網絡訪問遠程對象時，代理模式可以隱藏底層的網絡通信細節。
+    - 代理模式可以隱藏網絡通信細節
 2. **虛擬代理**：
     - 在大型圖像或文件的加載過程中，虛擬代理可以在真正加載之前顯示佔位符或延遲加載。
 3. **保護代理**：
@@ -229,7 +232,7 @@ Command 模式是一種行為型設計模式，它將請求封裝成對象，從
 1. **工作流系統**：
     - 使用 Command 模式實現工作流中的提交、審核、執行和撤銷操作。
 2. **撤銷/重做功能**：
-    - 提供撤銷和重做功能，允許用戶回退或重放操作，管理操作歷史記錄。
+    - 提供撤銷和重做功能，允許使用者回溯或重做操作，並管理操作歷史。
 3. **批量操作**：
     - 用於批量處理多個命令，允許並行執行多個命令。
 
@@ -252,6 +255,29 @@ State 模式是一種行為型設計模式，它允許對象在內部狀態發�
 - 測試在特定狀態下進行不允許的操作時，系統會阻止這些操作。
 - 測試高併發情境下，訂單的狀態轉換是否正確處理。
 - 測試網絡中斷或資源不足時的異常情境處理。
+
+### Prototype 模式
+
+#### 模式設計
+Prototype 模式允許對象能夠通過複製來創建新的對象，避免重新初始化類別，提高效能。
+
+#### 使用情境
+1. **UI 組件複製**：
+    - 根據不同參數快速複製 UI 元件，而不必重新初始化或重新設計。
+2. **嵌套結構深層複製**：
+    - 深層複製包含複雜嵌套的對象，確保不同對象不共享內部狀態。
+3. **效能優化**：
+    - 在高效能需求的情境中通過複製現有對象，避免耗時的初始化。
+4. **區塊鏈智能合約開發**：
+    - Prototype 模式可以用來快速複製智能合約模板。能節省資源，還可以在鏈上複製合約時避免重新部署或初始化的耗時過程，提升合約的部署效率，並確保每個合約副本的行為保持一致。
+
+#### 測試情境
+- 測試 UI 組件的複製與修改。
+- 測試嵌套對象的深層複製與修改，確保不同對象互不影響。
+- 測試邊界情境下的行為，如處理 null、undefined 及極大值。
+- 壓力測試：大量對象複製的效能檢查。
+
+
 
 ## 使用方法
 
