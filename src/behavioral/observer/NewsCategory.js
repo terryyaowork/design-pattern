@@ -20,7 +20,10 @@ class NewsCategory {
         /**
          * TODO: 檢查訂閱者是否已經訂閱，防止重複訂閱同一新聞類別。
          */
-        this.subscribers.push(observer);
+        if (!observer) throw new Error('Subscriber cannot be null or undefined');
+        if (!this.subscribers.includes(observer)) {
+            this.subscribers.push(observer);
+        }
     }
 
     /**
@@ -31,6 +34,7 @@ class NewsCategory {
         /**
          * TODO: 檢查訂閱者是否已訂閱，避免取消未訂閱的訂閱者時出現錯誤。
          */
+        if (!observer) throw new Error('Subscriber cannot be null or undefined');
         this.subscribers = this.subscribers.filter(sub => sub !== observer);
     }
 

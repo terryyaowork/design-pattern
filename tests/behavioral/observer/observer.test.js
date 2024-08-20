@@ -130,4 +130,37 @@ describe('Observer Pattern - News Subscription System', () => {
         expect(console.log).toHaveBeenCalledWith('Alice received news: Health: New health guidelines released!');
         expect(console.log).toHaveBeenCalledWith('Bob received news: Health: New health guidelines released!');
     });
+
+    /**
+     * 測試異常情況：訂閱或取消訂閱時傳入 null 或 undefined
+     */
+    it('應該處理異常情況：傳入 null 或 undefined 的訂閱或取消訂閱操作', () => {
+        const newsCategory = new NewsCategory('Technology');
+
+        console.log = jest.fn();
+
+        expect(() => newsCategory.subscribe(null)).toThrowError('Subscriber cannot be null or undefined');
+        expect(() => newsCategory.unsubscribe(undefined)).toThrowError('Subscriber cannot be null or undefined');
+    });
+
+    /**
+     * 測試高併發情況下的通知機制
+     */
+    it('應該在高併發情況下正確通知所有訂閱者', async () => {
+        const newsCategory = new NewsCategory('Health');
+        const subscribers = Array.from({ length: 1000 }, (_, i) => new User(`User${i + 1}`));
+    
+        console.log = jest.fn();
+    
+        // 訂閱所有用戶
+        subscribers.forEach(subscriber => newsCategory.subscribe(subscriber));
+    
+        // 只發佈一次新聞
+        newsCategory.publish('New health guidelines released!');
+    
+        // 驗證所有用戶是否收到了通知
+        subscribers.forEach(subscriber => {
+            expect(console.log).toHaveBeenCalledWith(`${subscriber.username} received news: Health: New health guidelines released!`);
+        });
+    });
 });
