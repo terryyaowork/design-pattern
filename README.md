@@ -16,6 +16,11 @@ nodejs-design-patterns-practice/
 │   │   │   ├── index.js                    # 工廠模式的入口
 │   │   │   └── ProductFactory.js           # 定義工廠，根據不同參數生成對應的產品實例
 │   ├── behavioral/                         # 行為型設計模式
+│   │   ├── chain_of_responsibility/        # 責任鏈模式的具體實現
+│   │   │   ├── CartHandler.js              # 購物車處理
+│   │   │   ├── DiscountHandler.js          # 折扣處理
+│   │   │   ├── PaymentHandler.js           # 支付處理
+│   │   │   ├── StockHandler.js             # 庫存處理
 │   │   ├── command/                        # 命令模式
 │   │   │   ├── Invoker.js                  # 命令執行者
 │   │   │   ├── WorkflowReceiver.js         # 工作流接收者
@@ -277,6 +282,18 @@ Prototype 模式允許對象能夠通過複製來創建新的對象，避免重�
 - 測試邊界情境下的行為，如處理 null、undefined 及極大值。
 - 壓力測試：大量對象複製的效能檢查。
 
+### Chain of Responsibility 模式
+
+#### 模式設計
+
+Chain of Responsibility 模式是一種行為型設計模式，允許多個對象有機會處理請求，將這些對象串成一個處理鏈，請求沿著這個鏈傳遞，直到有對象處理它為止。
+
+#### 使用情境
+
+1. **購物車系統**：
+    - 在購物車結算流程中，不同的檢查步驟（如庫存檢查、折扣應用、支付驗證）可以設計成獨立的責任鏈節點，根據業務邏輯按順序處理。
+2. **事件處理系統**：
+    - 事件在多個對象之間傳遞，直到有對象能夠處理這個事件為止，常見於 GUI 應用中。
 
 
 ## 使用方法
