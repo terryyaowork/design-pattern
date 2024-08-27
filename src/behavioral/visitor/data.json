@@ -1,0 +1,11 @@
+{
+    "salesData": [
+      { "id": 1, "salesPerson": "John Doe", "totalSales": 5000 },
+      { "id": 2, "salesPerson": "Jane Smith", "totalSales": 7000 }
+    ],
+    "employeeData": [
+      { "id": 1, "name": "John Doe", "department": "Sales", "position": "Manager" },
+      { "id": 2, "name": "Jane Smith", "department": "Sales", "position": "Associate" }
+    ]
+  }
+  
