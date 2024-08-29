@@ -2,7 +2,7 @@
 
 ## 專案簡介
 
-本專案旨在學習和實踐各種設計模式。涵蓋的設計模式包括 Singleton（單例）模式、Factory（工廠）模式、Strategy（策略）模式、Observer（觀察者）模式、Decorator（裝飾者）模式、Proxy（代理）模式、Adapter（適配器）模式、Facade（外觀）模式、Template Method（模板方法）模式、Command（命令）模式、State（狀態）模式、Prototype（原型）模式、Chain of Responsibility（責任鏈）模式、Visitor（訪問者）模式、Interpreter（解釋器）模式、Mediator（中介者）模式、Bridge（橋接）模式，以及 Builder（建造者）模式。
+本專案旨在學習和實踐各種設計模式，涵蓋了 GoF 提出的 23 種設計模式，包括 Singleton（單例）模式、Factory（工廠）模式、Abstract Factory（抽象工廠）模式、Builder（建造者）模式、Prototype（原型）模式、Adapter（適配器）模式、Bridge（橋接）模式、Decorator（裝飾者）模式、Facade（外觀）模式、Flyweight（享元）模式、Proxy（代理）模式、Chain of Responsibility（責任鏈）模式、Command（命令）模式、Interpreter（解釋器）模式、Iterator（迭代器）模式、Mediator（中介者）模式、Memento（備忘錄）模式、Observer（觀察者）模式、State（狀態）模式、Strategy（策略）模式、Template Method（模板方法）模式和 Visitor（訪問者）模式。
 
 
 ## 目錄結構
