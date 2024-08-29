@@ -15,7 +15,7 @@ nodejs-design-patterns-practice/
 │   │   │   ├── CartHandler.js              # 購物車處理
 │   │   │   ├── DiscountHandler.js          # 折扣處理
 │   │   │   ├── PaymentHandler.js           # 支付處理
-│   │   │   ├── StockHandler.js             # 庫存處理
+│   │   │   └── StockHandler.js             # 庫存處理
 │   │   ├── command/                        # 命令模式
 │   │   │   ├── Invoker.js                  # 命令執行者
 │   │   │   ├── WorkflowReceiver.js         # 工作流接收者
@@ -46,7 +46,7 @@ nodejs-design-patterns-practice/
 │   │   │   ├── PaymentState.js             # Payment 狀態
 │   │   │   ├── DeliveredState.js           # Delivered 狀態
 │   │   │   ├── CompletedState.js           # Completed 狀態
-│   │   │   ├── CancelledState.js           # Cancelled 狀態
+│   │   │   └── CancelledState.js           # Cancelled 狀態
 │   │   ├── strategy/                       # 策略模式
 │   │   │   ├── index.js                    # 策略模式的入口
 │   │   │   ├── PaymentContext.js           # 根據策略執行對應的支付行為
@@ -64,10 +64,18 @@ nodejs-design-patterns-practice/
 │   │   │   ├── ReportVisitor.js            # 訪問者類別，用於訪問數據並生成報告
 │   │   │   └── SalesData.js                # 處理銷售數據的訪問類別
 │   ├── creational/                         # 創建型設計模式
+│   │   ├── abstract_factory/               # 抽象工廠模式
+│   │   │   ├── AbstractFactory.js          # 抽象工廠基類，定義工廠接口
+│   │   │   ├── USFactory.js                # 美國工廠實現，創建美國產品
+│   │   │   ├── EUFactory.js                # 歐洲工廠實現，創建歐洲產品
+│   │   │   ├── USProductA.js               # 美國產品A實現類
+│   │   │   ├── USProductB.js               # 美國產品B實現類
+│   │   │   ├── EUProductA.js               # 歐洲產品A實現類
+│   │   │   └── EUProductB.js               # 歐洲產品B實現類
 │   │   ├── builder/                        # 建造者模式
 │   │   │   ├── Report.js                   # 報告對象類，用於封裝報告的數據和結構
 │   │   │   ├── ReportBuilder.js            # 構建報告的核心類
-│   │   │   ├── ReportDirector.js           # 指導具體的報告構建流程
+│   │   │   └── ReportDirector.js           # 指導具體的報告構建流程
 │   │   ├── singleton/                      # 單例模式
 │   │   │   └── index.js
 │   │   ├── factory/                        # 工廠模式
@@ -78,27 +86,27 @@ nodejs-design-patterns-practice/
 │   │   │   ├── index.js                    # 適配器模式的入口
 │   │   │   ├── IPaymentProcessor.js        # 支付接口
 │   │   │   ├── PaymentAdapter.js           # 支付適配器類別
-│   │   │   ├── OldPaymentSystem.js         # 舊的支付系統
+│   │   │   └── OldPaymentSystem.js         # 舊的支付系統
 │   │   ├── bridge/                         # 新增的 Bridge 模式
 │   │   │   ├── CreditCardProcessor.js      # 信用卡處理器
 │   │   │   ├── PayPalProcessor.js          # PayPal 處理器
 │   │   │   ├── BankTransferProcessor.js    # 銀行轉帳處理器
 │   │   │   ├── OnlinePayment.js            # 線上支付類別
-│   │   │   ├── OfflinePayment.js           # 線下支付類別
+│   │   │   └── OfflinePayment.js           # 線下支付類別
 │   │   ├── decorator/                      # 裝飾者模式
 │   │   │   ├── index.js                    # 裝飾者模式的入口
 │   │   │   ├── BasicCoffee.js              # 基本咖啡類別
 │   │   │   ├── Decorator.js                # 裝飾者基類
 │   │   │   ├── MilkDecorator.js            # 牛奶裝飾者
-│   │   │   ├── SugarDecorator.js           # 糖裝飾者
+│   │   │   └── SugarDecorator.js           # 糖裝飾者
 │   │   ├── facade/                         # 外觀模式
 │   │   │   ├── Facade.js                   # 訂單系統的外觀模式
 │   │   │   ├── InventoryManager.js         # 庫存管理系統
 │   │   │   ├── PaymentProcessor.js         # 支付處理系統
-│   │   │   ├── ShippingService.js          # 配送系統
+│   │   │   └── ShippingService.js          # 配送系統
 │   │   ├── prototype/                      # 原型模式
 │   │   │   ├── NestedComponent.js          # 巢狀 ui 元件
-│   │   │   ├── UIComponent.js              # 初始 ui 元件
+│   │   │   └── UIComponent.js              # 初始 ui 元件
 │   │   ├── proxy/                          # 代理模式
 │   │   │   ├── index.js                    # 代理模式的入口
 │   │   │   └── ProxyImage.js               # 代理圖像類別
@@ -114,6 +122,7 @@ nodejs-design-patterns-practice/
 │   │   ├── template_method.test.js         # 模板模式的測試
 │   │   └── visitor.test.js                 # 訪問者模式的測試
 │   ├── creational/                         # 創建型設計模式測試
+│   │   ├── abstract_factory.test.js        # 抽象工廠模式的測試
 │   │   ├── builder.test.js                 # 建造者模式的測試
 │   │   ├── factory.test.js                 # 工廠模式的測試
 │   │   └── singleton.test.js               # 單例模式的測試
@@ -501,6 +510,33 @@ Bridge 模式是一種結構型設計模式，它分離抽象部分和它的實�
     - 測試支付處理器在異步操作中的錯誤處理。
 5. **無效參數測試**：
     - 測試傳入無效金額或其他參數時，系統能正確處理並返回錯誤訊息。
+
+### Abstract Factory 模式
+
+#### 模式設計
+
+Abstract Factory 模式是一種創建型設計模式，提供了一個接口來創建一系列相關或依賴對象，而無需指定具體類別。它允許用戶創建一組相互依賴的對象，並將這些對象的具體實現與其使用方式分離開來。
+
+#### 使用情境
+
+1. **跨平台 UI 組件創建**：
+    - 當應用程式需要支持多個平台（如 Windows、MacOS、Linux）並且每個平台上的 UI 組件實現不同時，Abstract Factory 可以幫助統一創建和管理這些平台特定的 UI 元件。
+2. **產品家族創建**：
+    - 當系統需要創建一組相關的產品對象時（例如不同地區的產品），Abstract Factory 可以確保這些產品的一致性並統一管理它們的創建邏輯。
+3. **依賴性對象的創建**：
+    - 當一個對象的創建依賴於其他對象，且這些依賴對象的類型可以動態變化時，Abstract Factory 可以幫助解耦創建過程，避免在代碼中硬編碼依賴關係。
+
+#### 測試情境
+
+1. **工廠創建測試**：
+    - 測試美國和歐洲工廠是否能夠正確創建各自的產品。
+2. **產品異步操作測試**：
+    - 測試創建的產品是否能夠正確處理異步操作，驗證 `use` 方法的執行。
+3. **多產品異步操作測試**：
+    - 測試在多產品的異步操作情境下，系統是否能夠正確運行並管理資源。
+4. **異常處理測試**：
+    - 測試在異步操作超時或發生錯誤時，系統能否正確處理並回滾資源。
+
 
 
 ## 使用方法
