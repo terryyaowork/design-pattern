@@ -2,7 +2,8 @@
 
 ## 專案簡介
 
-本專案旨在學習和實踐各種設計模式。此部分專注於 Singleton（單例）模式、Factory（工廠）模式、Strategy（策略）模式、Observer（觀察者）模式、Decorator（裝飾者）模式與 Proxy（代理）模式的實現與應用。
+本專案旨在學習和實踐各種設計模式。涵蓋的設計模式包括 Singleton（單例）模式、Factory（工廠）模式、Strategy（策略）模式、Observer（觀察者）模式、Decorator（裝飾者）模式、Proxy（代理）模式、Adapter（適配器）模式、Facade（外觀）模式、Template Method（模板方法）模式、Command（命令）模式、State（狀態）模式、Prototype（原型）模式、Chain of Responsibility（責任鏈）模式、Visitor（訪問者）模式、Interpreter（解釋器）模式、Mediator（中介者）模式，以及 Builder（建造者）模式。
+
 
 ## 目錄結構
 
@@ -63,6 +64,10 @@ nodejs-design-patterns-practice/
 │   │   │   ├── ReportVisitor.js            # 訪問者類別，用於訪問數據並生成報告
 │   │   │   └── SalesData.js                # 處理銷售數據的訪問類別
 │   ├── creational/                         # 創建型設計模式
+│   │   ├── builder/                        # 建造者模式
+│   │   │   ├── Report.js                   # 報告對象類，用於封裝報告的數據和結構
+│   │   │   ├── ReportBuilder.js            # 構建報告的核心類
+│   │   │   ├── ReportDirector.js           # 指導具體的報告構建流程
 │   │   ├── singleton/                      # 單例模式
 │   │   │   └── index.js
 │   │   ├── factory/                        # 工廠模式
@@ -103,8 +108,9 @@ nodejs-design-patterns-practice/
 │   │   ├── template_method.test.js         # 模板模式的測試
 │   │   └── visitor.test.js                 # 訪問者模式的測試
 │   ├── creational/                         # 創建型設計模式測試
-│   │   ├── singleton.test.js               # 單例模式的測試
-│   │   └── factory.test.js                 # 工廠模式的測試
+│   │   ├── builder.test.js                 # 建造者模式的測試
+│   │   ├── factory.test.js                 # 工廠模式的測試
+│   │   └── singleton.test.js               # 單例模式的測試
 │   ├── structural/                         # 結構型設計模式測試
 │   │   ├── adapter.test.js                 # 適配器模式的測試
 │   │   ├── decorator.test.js               # 裝飾者模式的測試
@@ -428,6 +434,39 @@ Memento 模式是一種行為型設計模式，它允許對象保存和恢復其
    - 測試大量狀態變更時的性能表現，並確保系統穩定運行。
 4. **併發操作**：
    - 測試在多個 Memento 同時保存和回復時的資料完整性。
+
+### Builder 模式
+
+#### 模式設計
+
+Builder 模式是一種創建型設計模式，它允許用戶分步構建複雜對象，而不需要關心其內部構建過程的細節。通過將對象的構建邏輯與表示邏輯分離，Builder 模式可以更靈活地創建不同表示的對象。
+
+#### 使用情境
+
+1. **報告生成**：
+    - 用於構建具有多個部分（如標題、圖表、表格、注釋等）的報告，允許用戶按步驟創建報告。
+2. **UI 組件構建**：
+    - 在創建複雜的 UI 組件時，允許用戶按步驟添加屬性和子元件，最終組合成完整的 UI。
+3. **文件生成**：
+    - 構建複雜文件（如 Word、PDF），允許用戶按步驟添加段落、圖片、表格等元素。
+
+#### 測試情境
+
+1. **報告標題設置測試**：
+    - 測試能否正確設置報告的標題，確保 `buildTitle` 方法的正常運行。
+2. **圖表和表格添加測試**：
+    - 測試能否正確添加圖表和表格，驗證 `buildChart` 和 `buildTable` 方法的正確性。
+3. **無設置任何屬性邊界測試**：
+    - 測試在無設置任何屬性的情況下能否正確構建報告，驗證默認值處理。
+4. **異步構建過程測試**：
+    - 測試異步構建過程中的正確性，確保 `build` 方法在處理異步操作時能正確運行。
+5. **重複設置標題測試**：
+    - 測試多次設置標題時是否能正確覆蓋，驗證標題的唯一性。
+6. **大規模數據處理測試**：
+    - 測試大規模數據（如 1000 個圖表和表格）能否正確添加，檢驗系統的處理能力。
+7. **異常情況處理測試**：
+    - 測試異步操作中的錯誤處理，驗證系統在異常情況下的穩定性。
+
 
 
 ## 使用方法
