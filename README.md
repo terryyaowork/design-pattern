@@ -2,7 +2,7 @@
 
 ## 專案簡介
 
-本專案旨在學習和實踐各種設計模式。涵蓋的設計模式包括 Singleton（單例）模式、Factory（工廠）模式、Strategy（策略）模式、Observer（觀察者）模式、Decorator（裝飾者）模式、Proxy（代理）模式、Adapter（適配器）模式、Facade（外觀）模式、Template Method（模板方法）模式、Command（命令）模式、State（狀態）模式、Prototype（原型）模式、Chain of Responsibility（責任鏈）模式、Visitor（訪問者）模式、Interpreter（解釋器）模式、Mediator（中介者）模式，以及 Builder（建造者）模式。
+本專案旨在學習和實踐各種設計模式。涵蓋的設計模式包括 Singleton（單例）模式、Factory（工廠）模式、Strategy（策略）模式、Observer（觀察者）模式、Decorator（裝飾者）模式、Proxy（代理）模式、Adapter（適配器）模式、Facade（外觀）模式、Template Method（模板方法）模式、Command（命令）模式、State（狀態）模式、Prototype（原型）模式、Chain of Responsibility（責任鏈）模式、Visitor（訪問者）模式、Interpreter（解釋器）模式、Mediator（中介者）模式、Bridge（橋接）模式，以及 Builder（建造者）模式。
 
 
 ## 目錄結構
@@ -79,6 +79,12 @@ nodejs-design-patterns-practice/
 │   │   │   ├── IPaymentProcessor.js        # 支付接口
 │   │   │   ├── PaymentAdapter.js           # 支付適配器類別
 │   │   │   ├── OldPaymentSystem.js         # 舊的支付系統
+│   │   ├── bridge/                         # 新增的 Bridge 模式
+│   │   │   ├── CreditCardProcessor.js      # 信用卡處理器
+│   │   │   ├── PayPalProcessor.js          # PayPal 處理器
+│   │   │   ├── BankTransferProcessor.js    # 銀行轉帳處理器
+│   │   │   ├── OnlinePayment.js            # 線上支付類別
+│   │   │   ├── OfflinePayment.js           # 線下支付類別
 │   │   ├── decorator/                      # 裝飾者模式
 │   │   │   ├── index.js                    # 裝飾者模式的入口
 │   │   │   ├── BasicCoffee.js              # 基本咖啡類別
@@ -113,6 +119,7 @@ nodejs-design-patterns-practice/
 │   │   └── singleton.test.js               # 單例模式的測試
 │   ├── structural/                         # 結構型設計模式測試
 │   │   ├── adapter.test.js                 # 適配器模式的測試
+│   │   ├── bridge.test.js                  # 新增的橋接器模式測試
 │   │   ├── decorator.test.js               # 裝飾者模式的測試
 │   │   ├── facade.test.js                  # 外觀模式的測試
 │   │   ├── prototype.test.js               # 原型模式的測試
@@ -467,6 +474,33 @@ Builder 模式是一種創建型設計模式，它允許用戶分步構建複雜
 7. **異常情況處理測試**：
     - 測試異步操作中的錯誤處理，驗證系統在異常情況下的穩定性。
 
+### Bridge 模式
+
+#### 模式設計
+
+Bridge 模式是一種結構型設計模式，它分離抽象部分和它的實現部分，使它們可以各自獨立地變化。這種模式允許你在保持接口不變的情況下，更換底層實現，適應需求的變化。
+
+#### 使用情境
+
+1. **支付系統**：
+    - 允許在不改變支付接口的情況下，切換不同的支付處理器，如信用卡、PayPal、銀行轉帳等。
+2. **UI 渲染系統**：
+    - 不同的圖形介面使用不同的渲染技術，如 2D、3D 或 WebGL，這樣可以輕鬆切換底層實現。
+3. **數據庫訪問層**：
+    - 在不同的數據庫之間切換，無需更改訪問接口，使系統更具靈活性。
+
+#### 測試情境
+
+1. **線上支付測試（信用卡處理器）**：
+    - 測試使用信用卡處理器進行線上支付。
+2. **線下支付測試（PayPal 處理器）**：
+    - 測試使用 PayPal 處理器進行線下支付。
+3. **高併發支付測試**：
+    - 測試高併發情境下的支付處理，確保系統穩定。
+4. **異步支付錯誤測試**：
+    - 測試支付處理器在異步操作中的錯誤處理。
+5. **無效參數測試**：
+    - 測試傳入無效金額或其他參數時，系統能正確處理並返回錯誤訊息。
 
 
 ## 使用方法
