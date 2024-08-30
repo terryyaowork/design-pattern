@@ -76,11 +76,14 @@ nodejs-design-patterns-practice/
 │   │   │   ├── Report.js                   # 報告對象類，用於封裝報告的數據和結構
 │   │   │   ├── ReportBuilder.js            # 構建報告的核心類
 │   │   │   └── ReportDirector.js           # 指導具體的報告構建流程
-│   │   ├── singleton/                      # 單例模式
-│   │   │   └── index.js
 │   │   ├── factory/                        # 工廠模式
 │   │   │   ├── index.js                    # 工廠模式的入口
 │   │   │   └── ProductFactory.js           # 定義工廠，根據不同參數生成對應的產品實例
+│   │   ├── object_pool/                     # 物件池模式
+│   │   │   ├── Connection.js               # 連線物件的定義
+│   │   │   └── ConnectionPool.js           # 連線池的實現
+│   │   ├── singleton/                      # 單例模式
+│   │   │   └── index.js
 │   ├── structural/                         # 結構型設計模式
 │   │   ├── adapter/                        # 適配器模式
 │   │   │   ├── index.js                    # 適配器模式的入口
@@ -120,6 +123,7 @@ nodejs-design-patterns-practice/
 │   │   ├── command.test.js                 # 命令模式的測試
 │   │   ├── interpreter.test.js             # 解釋器模式的測試
 │   │   ├── mediator.test.js                # 中介者模式的測試
+│   │   ├── memento.test.js                 # memento 模式的測試
 │   │   ├── observer.test.js                # 觀察者模式的測試
 │   │   ├── state.test.js                   # 狀態模式的測試
 │   │   ├── strategy.test.js                # 策略模式的測試
@@ -129,10 +133,12 @@ nodejs-design-patterns-practice/
 │   │   ├── abstract_factory.test.js        # 抽象工廠模式的測試
 │   │   ├── builder.test.js                 # 建造者模式的測試
 │   │   ├── factory.test.js                 # 工廠模式的測試
+│   │   ├── object_pool.test.js             # object_pool 的測試
 │   │   └── singleton.test.js               # 單例模式的測試
 │   ├── structural/                         # 結構型設計模式測試
 │   │   ├── adapter.test.js                 # 適配器模式的測試
-│   │   ├── bridge.test.js                  # 新增的橋接器模式測試
+│   │   ├── bridge.test.js                  # 橋接器模式測試
+│   │   ├── composite.test.js               # 組合模式測試
 │   │   ├── decorator.test.js               # 裝飾者模式的測試
 │   │   ├── facade.test.js                  # 外觀模式的測試
 │   │   ├── prototype.test.js               # 原型模式的測試
@@ -571,6 +577,37 @@ Composite 模式是一種結構型設計模式，它允許你將對象組合成�
 6. **內存使用測試**：
     - 測試在高負載下系統的內存使用情況，確保內存使用在合理範圍內。
 
+### Object Pool 模式
+
+#### 模式設計
+
+Object Pool 模式是一種創建型設計模式，用於管理物件的重複使用，避免頻繁的創建和銷毀操作。這種模式特別適用於需要經常創建和銷毀的物件，通過池化技術來優化效能並減少系統資源的消耗。
+
+#### 使用情境
+
+1. **連線池**：
+    - 用於管理數據庫或網絡連線，通過重用現有連線來減少連線建立的開銷。
+2. **資源管理**：
+    - 在需要頻繁創建和銷毀的資源（如線程、記憶體塊）場景中，使用物件池來管理資源的分配和釋放。
+3. **物件重用**：
+    - 在遊戲開發或多媒體應用中，對需要頻繁重用的物件進行池化管理，減少內存碎片和 GC 壓力。
+
+#### 測試情境
+
+1. **連線取得測試**：
+    - 測試從連線池中成功取得一個連線，並檢查連線池狀態的變化。
+2. **連線釋放測試**：
+    - 測試將已取得的連線釋放回連線池，並確認連線池狀態恢復。
+3. **空連線池測試**：
+    - 測試當連線池中無可用連線時，取得連線操作是否正確拋出錯誤。
+4. **無效連線釋放測試**：
+    - 測試當釋放一個不屬於連線池的連線時，是否正確拋出錯誤。
+5. **高併發測試**：
+    - 測試在高併發情境下，系統能夠正確處理大量連線請求，並保持性能穩定。
+6. **性能測試**：
+    - 測試在大量連續的連線取得與釋放操作下，系統性能的穩定性。
+7. **內存穩定性測試**：
+    - 測試在高併發情境下，系統內存使用是否能夠保持穩定，防止內存洩漏。
 
 
 ## 使用方法
